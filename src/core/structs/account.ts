@@ -1,27 +1,27 @@
 import ref from 'ref-napi'
-import structType from 'ref-struct-di'
-import arrayType from 'ref-array-di'
-import { structAffect } from './affect'
-import { structItem } from './item'
-import { structMob } from './mob'
-import { structMobExtra } from './mob-extra'
+import StructType from 'ref-struct-di'
+import ArrayType from 'ref-array-di'
+import { StructAffect } from './affect'
+import { StructItem } from './item'
+import { StructMob } from './mob'
+import { StructMobExtra } from './mob-extra'
 
-const struct = structType(ref)
-const array = arrayType(ref)
+const struct = StructType(ref)
+const array = ArrayType(ref)
 
-export const structUserExtra = struct({
+export const StructUserExtra = struct({
   donate: ref.types.int,
   honra: ref.types.int,
   keyNewbie: ref.types.byte,
-  divina: structAffect,
-  vip: structAffect,
+  divina: StructAffect,
+  vip: StructAffect,
   timeStamp: struct({
     login: ref.types.longlong,
     delete: array(ref.types.longlong, 4)
   })
 })
 
-export const structAccountInfo = struct({
+export const StructAccountInfo = struct({
   accountName: array(ref.types.char, 16),
   accountPass: array(ref.types.char, 12),
   realName: array(ref.types.char, 24),
@@ -35,14 +35,14 @@ export const structAccountInfo = struct({
   yearDay: ref.types.int
 })
 
-export const structAccountFile = struct({
-  info: structAccountInfo,
-  char: array(structMob, 4),
-  cargo: array(structItem, 128),
+export const StructAccountFile = struct({
+  info: StructAccountInfo,
+  char: array(StructMob, 4),
+  cargo: array(StructItem, 128),
   coin: ref.types.int,
   shortSkill: array(array(ref.types.byte, 16), 4),
-  affect: array(array(structAffect, 32), 4),
-  mobExtra: array(structMobExtra, 4),
+  affect: array(array(StructAffect, 32), 4),
+  mobExtra: array(StructMobExtra, 4),
   tempKey: array(ref.types.char, 52),
-  userExtra: structUserExtra
+  userExtra: StructUserExtra
 })

@@ -1,13 +1,13 @@
 import ref from 'ref-napi'
-import structType from 'ref-struct-di'
-import arrayType from 'ref-array-di'
-import { structItem } from './item'
-import { structScore } from './score'
+import StructType from 'ref-struct-di'
+import ArrayType from 'ref-array-di'
+import { StructItem } from './item'
+import { StructScore } from './score'
 
-const struct = structType(ref)
-const array = arrayType(ref)
+const struct = StructType(ref)
+const array = ArrayType(ref)
 
-export const structMob = struct({
+export const StructMob = struct({
   mobName: array(ref.types.char, 20),
   clan: ref.types.byte,
   merchant: ref.types.byte,
@@ -19,10 +19,10 @@ export const structMob = struct({
   experience: ref.types.longlong,
   homeTownX: ref.types.short,
   homeTownY: ref.types.short,
-  baseScore: structScore,
-  currentScore: structScore,
-  equipment: array(structItem, 20),
-  inventory: array(structItem, 64),
+  baseScore: StructScore,
+  currentScore: StructScore,
+  equipment: array(StructItem, 20),
+  inventory: array(StructItem, 64),
   learnedSkill: ref.types.long,
   magic: ref.types.uint,
   scoreBonus: ref.types.short,

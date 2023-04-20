@@ -1,12 +1,12 @@
 import ref from 'ref-napi'
-import structType from 'ref-struct-di'
-import arrayType from 'ref-array-di'
-import { structScore } from './score'
+import StructType from 'ref-struct-di'
+import ArrayType from 'ref-array-di'
+import { StructScore } from './score'
 
-const struct = structType(ref)
-const array = arrayType(ref)
+const struct = StructType(ref)
+const array = ArrayType(ref)
 
-export const structMortal = struct({
+export const StructMortal = struct({
   newbie: ref.types.byte,
   terraMistica: ref.types.byte,
   molarGargula: ref.types.byte,
@@ -15,7 +15,7 @@ export const structMortal = struct({
   _: array(ref.types.byte, 30)
 })
 
-export const structArch = struct({
+export const StructArch = struct({
   mortalSlot: ref.types.byte,
   mortalLevel: ref.types.byte,
   level355: ref.types.byte,
@@ -24,7 +24,7 @@ export const structArch = struct({
   _: array(ref.types.byte, 30)
 })
 
-export const structCelestial = struct({
+export const StructCelestial = struct({
   archLevel: ref.types.short,
   celestialLevel: ref.types.short,
   subCelestialLevel: ref.types.short,
@@ -39,14 +39,14 @@ export const structCelestial = struct({
   _: array(ref.types.byte, 30)
 })
 
-export const structSubCelestial = struct({
+export const StructSubCelestial = struct({
   subStatus: ref.types.byte,
   classMaster: ref.types.byte,
   class: ref.types.byte,
   experience: ref.types.longlong,
   spawnX: ref.types.short,
   spawnY: ref.types.short,
-  baseScore: structScore,
+  baseScore: StructScore,
   learnedSkill: array(ref.types.long, 2),
   scoreBonus: ref.types.short,
   specialBonus: ref.types.short,
@@ -59,7 +59,7 @@ export const structSubCelestial = struct({
   _: array(ref.types.byte, 30)
 })
 
-export const structMobExtra = struct({
+export const StructMobExtra = struct({
   classMaster: ref.types.short,
   citizen: ref.types.byte,
   secondLearnedSkill: ref.types.long,
@@ -67,13 +67,13 @@ export const structMobExtra = struct({
   soul: ref.types.byte,
   mortalFace: ref.types.short,
   questInfo: struct({
-    mortal: structMortal,
-    arch: structArch,
-    celestial: structCelestial,
+    mortal: StructMortal,
+    arch: StructArch,
+    celestial: StructCelestial,
     circle: ref.types.byte,
     _: array(ref.types.byte, 30)
   }),
-  saveCelestial: structSubCelestial,
+  saveCelestial: StructSubCelestial,
   lastNT: ref.types.long,
   nt: ref.types.int,
   kefraTicket: ref.types.int,

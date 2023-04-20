@@ -1,16 +1,16 @@
 import ref from 'ref-napi'
-import structType from 'ref-struct-di'
+import StructType from 'ref-struct-di'
 
-const struct = structType(ref)
+const struct = StructType(ref)
 
-export const structAffect = struct({
+export const StructAffect = struct({
   type: ref.types.byte,
   value: ref.types.byte,
   level: ref.types.short,
   time: ref.types.uint
 })
 
-export const structTimeAffect = struct({
-  affect: structAffect,
+export const StructTimeAffect = struct({
+  affect: StructAffect,
   duration: ref.types.uint
 })

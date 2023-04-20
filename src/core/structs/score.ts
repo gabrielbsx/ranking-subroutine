@@ -1,11 +1,11 @@
 import ref from 'ref-napi'
-import structType from 'ref-struct-di'
-import arrayType from 'ref-array-di'
+import StructType from 'ref-struct-di'
+import ArrayType from 'ref-array-di'
 
-const struct = structType(ref)
-const array = arrayType(ref)
+const struct = StructType(ref)
+const array = ArrayType(ref)
 
-export const structScore = struct({
+export const StructScore = struct({
   level: ref.types.int,
   defense: ref.types.int,
   damage: ref.types.int,

@@ -1,16 +1,16 @@
 import ref from 'ref-napi'
-import structType from 'ref-struct-di'
-import arrayType from 'ref-array-di'
+import StructType from 'ref-struct-di'
+import ArrayType from 'ref-array-di'
 
-const struct = structType(ref)
-const array = arrayType(ref)
+const struct = StructType(ref)
+const array = ArrayType(ref)
 
-export const structItemEffect = struct({
+export const StructItemEffect = struct({
   effect: ref.types.byte,
   value: ref.types.byte
 })
 
-export const structItem = struct({
+export const StructItem = struct({
   index: ref.types.short,
-  effects: array(structItemEffect, 3)
+  effects: array(StructItemEffect, 3)
 })
