@@ -2,7 +2,7 @@ import { type Repository } from './repository'
 import { randomUUID } from 'node:crypto'
 
 export abstract class GenericRepository<T> implements Repository<T> {
-  private readonly data: Map<string, T>
+  protected data: Map<string, T>
 
   constructor () {
     this.data = new Map()

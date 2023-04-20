@@ -1,10 +1,12 @@
-import { join } from "ramda";
-import { PopulateFileSystem } from "./core/algorithm/populate";
+import * as dotenv from 'dotenv'
+import { PopulateFactory } from './core/factory/populate-factory'
 
-async function main() {
-  const populateFS = new PopulateFileSystem()
-  populateFS.gamePath = join('/', [__dirname, '..', 'mock', 'account'])
-  populateFS.populate()
+dotenv.config()
+
+function main (): void {
+  const populateFactory = new PopulateFactory()
+  const populate = populateFactory.createPopulate()
+  populate.populate()
 }
 
-main();
+main()
