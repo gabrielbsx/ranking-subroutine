@@ -1,6 +1,6 @@
-import ref from "ref-napi"
-import structType from "ref-struct-di"
-import arrayType from "ref-array-di"
+import ref from 'ref-napi'
+import structType from 'ref-struct-di'
+import arrayType from 'ref-array-di'
 
 const struct = structType(ref)
 const array = arrayType(ref)
@@ -21,5 +21,5 @@ export const structScore = struct({
   intelligence: ref.types.short,
   dexterity: ref.types.short,
   constitution: ref.types.short,
-  special: array(ref.types.short, 4),
+  special: array(ref.types.short, 4)
 })

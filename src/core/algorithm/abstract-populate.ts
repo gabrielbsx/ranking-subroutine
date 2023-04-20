@@ -1,3 +1,3 @@
 export abstract class Populate {
-  public abstract populate(): void
+  public abstract populate (): void
 }

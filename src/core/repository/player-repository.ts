@@ -1,6 +1,6 @@
-import { Player } from "../domain/player";
-import { GenericRepository } from "./generic-repository";
+import { type Player } from '../domain/player'
+import { GenericRepository } from './generic-repository'
 
 export class PlayerRepository extends GenericRepository<Player> {
-  
+
 }

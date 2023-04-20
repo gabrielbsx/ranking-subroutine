@@ -1,10 +1,10 @@
-import ref from "ref-napi"
-import structType from "ref-struct-di"
-import arrayType from "ref-array-di"
-import { structAffect } from "./affect"
-import { structItem } from "./item"
-import { structMob } from "./mob"
-import { structMobExtra } from "./mob-extra"
+import ref from 'ref-napi'
+import structType from 'ref-struct-di'
+import arrayType from 'ref-array-di'
+import { structAffect } from './affect'
+import { structItem } from './item'
+import { structMob } from './mob'
+import { structMobExtra } from './mob-extra'
 
 const struct = structType(ref)
 const array = arrayType(ref)
@@ -17,8 +17,8 @@ export const structUserExtra = struct({
   vip: structAffect,
   timeStamp: struct({
     login: ref.types.longlong,
-    delete: array(ref.types.longlong, 4),
-  }),
+    delete: array(ref.types.longlong, 4)
+  })
 })
 
 export const structAccountInfo = struct({
@@ -32,7 +32,7 @@ export const structAccountInfo = struct({
   address: array(ref.types.char, 78),
   numericToken: array(ref.types.char, 12),
   year: ref.types.int,
-  yearDay: ref.types.int,
+  yearDay: ref.types.int
 })
 
 export const structAccountFile = struct({
@@ -44,5 +44,5 @@ export const structAccountFile = struct({
   affect: array(array(structAffect, 32), 4),
   mobExtra: array(structMobExtra, 4),
   tempKey: array(ref.types.char, 52),
-  userExtra: structUserExtra,
+  userExtra: structUserExtra
 })

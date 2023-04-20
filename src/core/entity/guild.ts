@@ -1,5 +1,5 @@
-import { City, Kingdom } from "../domain/enums"
-import { Player } from "../domain/mob"
+import { type City, type Kingdom } from '../domain/enums'
+import { type Player } from '../domain/player'
 
 export interface Guild {
   identifier: number

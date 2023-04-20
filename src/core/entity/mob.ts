@@ -1,4 +1,4 @@
-import { Guild } from "./guild";
+import { type Guild } from './guild'
 
 export interface Mob {
   slot: number

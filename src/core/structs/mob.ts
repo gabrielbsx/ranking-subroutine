@@ -1,8 +1,8 @@
-import ref from "ref-napi"
-import structType from "ref-struct-di"
-import arrayType from "ref-array-di"
-import { structItem } from "./item"
-import { structScore } from "./score"
+import ref from 'ref-napi'
+import structType from 'ref-struct-di'
+import arrayType from 'ref-array-di'
+import { structItem } from './item'
+import { structScore } from './score'
 
 const struct = structType(ref)
 const array = arrayType(ref)
@@ -36,5 +36,5 @@ export const structMob = struct({
   regeneratesMana: ref.types.short,
   resist: array(ref.types.byte, 4),
   jewel: ref.types.short,
-  _: array(ref.types.short, 2),
+  _: array(ref.types.short, 2)
 })
