@@ -1,4 +1,3 @@
-import { not } from "ramda"
 import { Repository } from "./repository"
 import { randomUUID } from "node:crypto"
 
@@ -38,7 +37,7 @@ export abstract class GenericRepository<T> implements Repository<T> {
 
   async findOne(id: string): Promise<T> {
     const data = this.data.get(id)
-    if (not(data)) {
+    if (!data) {
       throw new Error("Not found")
     }
     return data as T

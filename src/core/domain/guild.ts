@@ -1,14 +1,13 @@
-import { not } from "ramda"
 import { City, Kingdom } from "./enums"
 import { Player } from "./player"
 import { Guild } from "../entity/guild"
 
 export abstract class AbstractGuild implements Guild {
-  public identifier: number
-  public name: string
-  private _kingdom: Kingdom
+  public identifier!: number
+  public name!: string
+  private _kingdom!: Kingdom
   public city?: City
-  public members: Player[]
+  public members!: Player[]
 
   public addMember(player: Player): void {
     this.members.push(player)
@@ -31,7 +30,7 @@ export abstract class AbstractGuild implements Guild {
   }
 
   set kingdom(kingdom: Kingdom) {
-    if (not(this.isValidKingdom(kingdom))) {
+    if (!this.isValidKingdom(kingdom)) {
       throw new Error("Invalid kingdom value")
     }
     this._kingdom = kingdom
