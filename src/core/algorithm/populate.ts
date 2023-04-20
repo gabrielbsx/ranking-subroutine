@@ -17,6 +17,7 @@ export class PopulateFileSystem extends Populate {
     })
   }
 
+  /** conflict with SPR */
   public async readAccount (folder: string, fileName: string): Promise<void> {
     const absoluteAccountPath = join(folder, fileName)
     const accountBuffer = readFileSync(absoluteAccountPath)
