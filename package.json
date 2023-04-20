@@ -9,6 +9,7 @@
   "author": "gabrielbsx",
   "license": "ISC",
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/node": "^18.15.11",
     "@types/ramda": "^0.29.0",
     "@types/ref-array-di": "^1.2.5",
@@ -25,6 +26,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "ramda": "^0.29.0",
     "ref-array-di": "^1.2.2",
     "ref-napi": "^3.0.3",
