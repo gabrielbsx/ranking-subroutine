@@ -1,4 +1,4 @@
-import { Evolution, GuildHierarchy, Race } from './enums'
+import { Evolution, GuildHierarchy, Race } from '../utils/enums'
 import { type Mob } from '../entity/mob'
 import { type Guild } from '../entity/guild'
 import { type StructMobType } from '../structs/mob'

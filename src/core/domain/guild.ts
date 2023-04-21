@@ -1,4 +1,4 @@
-import { type City, Kingdom } from './enums'
+import { type City, Kingdom } from '../utils/enums'
 import { type Player } from './player'
 import { type Guild } from '../entity/guild'
 

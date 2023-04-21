@@ -1,4 +1,4 @@
-import { type City, type Kingdom } from '../domain/enums'
+import { type City, type Kingdom } from '../utils/enums'
 import { type Player } from '../domain/player'
 
 export interface Guild {
