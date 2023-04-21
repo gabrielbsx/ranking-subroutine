@@ -87,3 +87,5 @@ export const StructMobExtra = struct({
   _: array(ref.types.byte, 12),
   __: array(ref.types.int, 9)
 })
+
+export type StructMobExtraType = ReturnType<typeof StructMobExtra>

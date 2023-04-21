@@ -46,3 +46,7 @@ export const StructAccountFile = struct({
   tempKey: array(ref.types.char, 52),
   userExtra: StructUserExtra
 })
+
+export type StructAccountFileType = ReturnType<typeof StructAccountFile>
+export type StructAccountInfoType = ReturnType<typeof StructAccountInfo>
+export type StructUserExtraType = ReturnType<typeof StructUserExtra>

@@ -38,3 +38,5 @@ export const StructMob = struct({
   jewel: ref.types.short,
   _: array(ref.types.short, 2)
 })
+
+export type StructMobType = ReturnType<typeof StructMob>
