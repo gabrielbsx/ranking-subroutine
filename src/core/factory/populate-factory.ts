@@ -1,12 +1,9 @@
-import { PopulateFileSystem } from '../algorithm/populate'
+import { PopulateFileSystem } from '../use-case/populate'
 import { FileSystemAccountRepository } from '../repository/account-repository'
-import { StructAccountFile } from '../structs/account'
 
 export class PopulateFactory {
   createPopulate (): PopulateFileSystem {
-    const fileSystemAccountRepository = new FileSystemAccountRepository(
-      StructAccountFile
-    )
+    const fileSystemAccountRepository = new FileSystemAccountRepository()
     const populate = new PopulateFileSystem(fileSystemAccountRepository)
     return populate
   }
