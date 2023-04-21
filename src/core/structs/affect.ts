@@ -12,5 +12,5 @@ export const StructAffect = struct({
 
 export const StructTimeAffect = struct({
   affect: StructAffect,
-  duration: ref.types.uint
+  duration: ref.types.longlong
 })

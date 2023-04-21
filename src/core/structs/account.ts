@@ -1,7 +1,7 @@
 import ref from 'ref-napi'
 import StructType from 'ref-struct-di'
 import ArrayType from 'ref-array-di'
-import { StructAffect } from './affect'
+import { StructAffect, StructTimeAffect } from './affect'
 import { StructItem } from './item'
 import { StructMob } from './mob'
 import { StructMobExtra } from './mob-extra'
@@ -13,8 +13,8 @@ export const StructUserExtra = struct({
   donate: ref.types.int,
   honra: ref.types.int,
   keyNewbie: ref.types.byte,
-  divina: StructAffect,
-  vip: StructAffect,
+  divina: StructTimeAffect,
+  vip: StructTimeAffect,
   timeStamp: struct({
     login: ref.types.longlong,
     delete: array(ref.types.longlong, 4)

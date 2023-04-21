@@ -8,7 +8,7 @@ const struct = StructType(ref)
 const array = ArrayType(ref)
 
 export const StructMob = struct({
-  mobName: array(ref.types.char, 20),
+  mobName: array(ref.types.char, 16),
   clan: ref.types.byte,
   merchant: ref.types.byte,
   guild: ref.types.short,
@@ -23,7 +23,7 @@ export const StructMob = struct({
   currentScore: StructScore,
   equipment: array(StructItem, 20),
   inventory: array(StructItem, 64),
-  learnedSkill: ref.types.long,
+  learnedSkill: ref.types.int,
   magic: ref.types.uint,
   scoreBonus: ref.types.short,
   specialBonus: ref.types.short,
