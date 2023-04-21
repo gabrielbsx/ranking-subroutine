@@ -1,6 +1,5 @@
 import { type Player } from '../domain/player'
-import { GenericRepository } from './generic-repository'
+import { FileSystemRepository } from './file-system-repository'
 
-export class FileStoragePlayerRepository extends GenericRepository<Player> {
-
+export class FileSystemPlayerRepository extends FileSystemRepository<Player> {
 }

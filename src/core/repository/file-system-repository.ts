@@ -1,10 +1,7 @@
 import { GenericRepository } from './generic-repository'
 
-export abstract class FileSystemRepository<T, U> extends GenericRepository<T> {
-  protected struct!: U
-  load (data: T[]): void {
-    data.forEach((item) => {
-      void super.create(item)
-    })
+export abstract class FileSystemRepository<T> extends GenericRepository<T> {
+  load (data: T): void {
+    void super.create(data)
   }
 }
