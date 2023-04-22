@@ -36,22 +36,25 @@ export const isValidAccount = (stats: StatsCache): boolean => {
   return true
 }
 
-export const accountStatsCacheAllocation = (accountStat: StatsCache, account: string): void => {
-  if (not(isValidAccount(accountStat))) {
-    return undefined
-  }
-  if (not(isAccountChanged(account, accountStat))) {
-    return undefined
-  }
-  const accountStatsCache: StatsCache = {
-    size: accountStat.size,
-    birthtime: accountStat.birthtime,
-    mtime: accountStat.mtime
-  }
-  cacheInMemory.set(`${account}:stats`, accountStatsCache)
-}
+type AccountStatsCacheAllocation = (accountStat: StatsCache, account: string) => void
 
-export const loadAccounts = (accountStatsCacheAllocationDependency: typeof accountStatsCacheAllocation): void => {
+export const accountStatsCacheAllocation: AccountStatsCacheAllocation =
+  (accountStat: StatsCache, account: string): void => {
+    if (not(isValidAccount(accountStat))) {
+      return undefined
+    }
+    if (not(isAccountChanged(account, accountStat))) {
+      return undefined
+    }
+    const accountStatsCache: StatsCache = {
+      size: accountStat.size,
+      birthtime: accountStat.birthtime,
+      mtime: accountStat.mtime
+    }
+    cacheInMemory.set(`${account}:stats`, accountStatsCache)
+  }
+
+export const loadAccounts = (accountStatsCacheAllocation: AccountStatsCacheAllocation): void => {
   const accountSubFolders = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').concat('etc')
   const accountFolder = env.ACCOUNT_PATH
   accountSubFolders.forEach((subFolder) => {
@@ -59,7 +62,7 @@ export const loadAccounts = (accountStatsCacheAllocationDependency: typeof accou
     readdirSync(accountAbsoluteFolder).forEach((account) => {
       const accountPath = join(accountAbsoluteFolder, account)
       const accountStat = statSync(accountPath)
-      accountStatsCacheAllocationDependency(accountStat, account)
+      accountStatsCacheAllocation(accountStat, account)
     })
   })
 }
