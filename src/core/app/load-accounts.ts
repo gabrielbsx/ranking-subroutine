@@ -6,7 +6,7 @@ import { type AccountStatsCache } from '../contracts/account-stats-cache'
 import { isEmpty } from '../utils/extensions/empty'
 import { not } from '../utils/extensions/operators'
 
-const isAccountCached = (account: string): boolean => {
+export const isAccountCached = (account: string): boolean => {
   const accountStatsCached: AccountStatsCache = cacheInMemory.get(`${account}:stats`)
   if (isEmpty(accountStatsCached)) {
     return false
@@ -14,7 +14,7 @@ const isAccountCached = (account: string): boolean => {
   return true
 }
 
-const isAccountChanged = (account: string, stats: Stats): boolean => {
+export const isAccountChanged = (account: string, stats: Stats): boolean => {
   const accountStatsCached: AccountStatsCache = cacheInMemory.get(`${account}:stats`)
   if (not(isAccountCached(account))) {
     return true
@@ -26,19 +26,17 @@ const isAccountChanged = (account: string, stats: Stats): boolean => {
   if (isThereAnyChange) {
     return true
   }
-  console.log(`${account} is not changed`)
   return false
 }
 
-const isValidAccount = (stats: Stats): boolean => {
+export const isValidAccount = (stats: Stats): boolean => {
   if (stats.isDirectory()) {
     return false
   }
   return true
 }
 
-const accountStatsCacheAllocation = (account: string, accountPath: string): void => {
-  const accountStat = statSync(accountPath)
+export const accountStatsCacheAllocation = (accountStat: Stats, account: string): void => {
   if (not(isValidAccount(accountStat))) {
     return undefined
   }
@@ -60,7 +58,8 @@ export const loadAccounts = (): void => {
     const accountAbsoluteFolder = join(accountFolder, subFolder)
     readdirSync(accountAbsoluteFolder).forEach((account) => {
       const accountPath = join(accountAbsoluteFolder, account)
-      accountStatsCacheAllocation(account, accountPath)
+      const accountStat = statSync(accountPath)
+      accountStatsCacheAllocation(accountStat, account)
     })
   })
 }
