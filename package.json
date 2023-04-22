@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start:dev": "tsx watch src/index.ts"
+    "start:dev:oop": "tsx watch src/oop/index.ts",
+    "start:dev:fp": "tsx watch src/fp/index.ts"
   },
   "author": "gabrielbsx",
   "license": "ISC",

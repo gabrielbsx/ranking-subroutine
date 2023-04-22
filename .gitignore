@@ -1,3 +1,5 @@
 mock
 .vscode
 node_modules
+.env
+src/core/structs

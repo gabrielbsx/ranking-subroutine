@@ -1,4 +1,4 @@
-import { type Repository } from './repository'
+import { type Repository } from '../domain/repository'
 import { randomUUID } from 'node:crypto'
 
 export abstract class GenericRepository<T> implements Repository<T> {
