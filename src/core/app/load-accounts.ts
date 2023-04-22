@@ -51,7 +51,7 @@ export const accountStatsCacheAllocation = (accountStat: StatsCache, account: st
   cacheInMemory.set(`${account}:stats`, accountStatsCache)
 }
 
-export const loadAccounts = (): void => {
+export const loadAccounts = (accountStatsCacheAllocationDependency: typeof accountStatsCacheAllocation): void => {
   const accountSubFolders = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').concat('etc')
   const accountFolder = env.ACCOUNT_PATH
   accountSubFolders.forEach((subFolder) => {
@@ -59,7 +59,7 @@ export const loadAccounts = (): void => {
     readdirSync(accountAbsoluteFolder).forEach((account) => {
       const accountPath = join(accountAbsoluteFolder, account)
       const accountStat = statSync(accountPath)
-      accountStatsCacheAllocation(accountStat, account)
+      accountStatsCacheAllocationDependency(accountStat, account)
     })
   })
 }

@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { loadAccounts } from '../core/app/load-accounts'
+import { accountStatsCacheAllocation, loadAccounts } from '../core/app/load-accounts'
 import { schedule } from '../core/algorithm/schedule'
 
 const bootstrap = (): void => {
@@ -11,7 +11,7 @@ const bootstrap = (): void => {
 const main = (): void => {
   bootstrap()
   const everyTime = 1000 * 10
-  schedule(loadAccounts, everyTime)
+  schedule(() => { loadAccounts(accountStatsCacheAllocation) }, everyTime)
 }
 
 main()
