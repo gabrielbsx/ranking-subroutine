@@ -18,7 +18,7 @@ export class FileSystemAccountRepository extends FileSystemRepository<Account> {
 
   public loadAccount (): void {
     FileSystemAccountRepository.alphabeticFolderNames.forEach((folderName) => {
-      const absoluteFolder = join(env.ACCOUNT_PATH as string, folderName)
+      const absoluteFolder = join(env.ACCOUNT_PATH, folderName)
       const accountFileNames = this.getListOfFilesOnPath(absoluteFolder)
       accountFileNames.forEach((accountFileName) => {
         this.readAccount(absoluteFolder, accountFileName)

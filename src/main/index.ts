@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
-import { loadAccounts } from './app/load-accounts'
-import { schedule } from './app/schedule'
+import { loadAccounts } from '../core/app/load-accounts'
+import { schedule } from '../core/algorithm/schedule'
 
 const bootstrap = (): void => {
   console.time('bootstrap')
@@ -10,8 +10,8 @@ const bootstrap = (): void => {
 
 const main = (): void => {
   bootstrap()
-  const everyMinute = 1000 * 10
-  schedule(loadAccounts, everyMinute)
+  const everyTime = 1000 * 10
+  schedule(loadAccounts, everyTime)
 }
 
 main()

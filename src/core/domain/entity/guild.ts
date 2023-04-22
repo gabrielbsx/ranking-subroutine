@@ -1,4 +1,4 @@
-import { type City, type Kingdom } from '../utils/game-enums'
+import { type City, type Kingdom } from '../../utils/extensions/game-enums'
 import { type Mob } from './mob'
 
 export interface Guild {

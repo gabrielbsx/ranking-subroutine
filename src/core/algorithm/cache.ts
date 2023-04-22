@@ -5,6 +5,7 @@ export interface Cache {
   get: (key: string) => any
   set: (key: string, value: any) => void
   setWithRandomKey: (value: any) => void
+  delete: (key: string) => void
 }
 
 export const cacheInMemory: Cache = {
@@ -18,5 +19,8 @@ export const cacheInMemory: Cache = {
   setWithRandomKey: (value: any): void => {
     const key = randomUUID()
     cacheInMemory.data.set(key, value)
+  },
+  delete: (key: string): void => {
+    cacheInMemory.data.delete(key)
   }
 }
