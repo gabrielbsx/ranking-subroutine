@@ -1,21 +1,21 @@
 import { join } from 'node:path'
 import { env } from 'node:process'
 import { cacheInMemory } from '../algorithm/cache'
-import { type Stats, readdirSync, statSync } from 'node:fs'
-import { type AccountStatsCache } from '../contracts/account-stats-cache'
+import { readdirSync, statSync } from 'node:fs'
+import { type StatsCache } from '../contracts/account-stats-cache'
 import { isEmpty } from '../utils/extensions/empty'
 import { not } from '../utils/extensions/operators'
 
 export const isAccountCached = (account: string): boolean => {
-  const accountStatsCached: AccountStatsCache = cacheInMemory.get(`${account}:stats`)
+  const accountStatsCached: StatsCache = cacheInMemory.get(`${account}:stats`)
   if (isEmpty(accountStatsCached)) {
     return false
   }
   return true
 }
 
-export const isAccountChanged = (account: string, stats: Stats): boolean => {
-  const accountStatsCached: AccountStatsCache = cacheInMemory.get(`${account}:stats`)
+export const isAccountChanged = (account: string, stats: StatsCache): boolean => {
+  const accountStatsCached: StatsCache = cacheInMemory.get(`${account}:stats`)
   if (not(isAccountCached(account))) {
     return true
   }
@@ -29,21 +29,21 @@ export const isAccountChanged = (account: string, stats: Stats): boolean => {
   return false
 }
 
-export const isValidAccount = (stats: Stats): boolean => {
-  if (stats.isDirectory()) {
+export const isValidAccount = (stats: StatsCache): boolean => {
+  if (stats.isDirectory?.() ?? true) {
     return false
   }
   return true
 }
 
-export const accountStatsCacheAllocation = (accountStat: Stats, account: string): void => {
+export const accountStatsCacheAllocation = (accountStat: StatsCache, account: string): void => {
   if (not(isValidAccount(accountStat))) {
     return undefined
   }
   if (not(isAccountChanged(account, accountStat))) {
     return undefined
   }
-  const accountStatsCache: AccountStatsCache = {
+  const accountStatsCache: StatsCache = {
     size: accountStat.size,
     birthtime: accountStat.birthtime,
     mtime: accountStat.mtime
