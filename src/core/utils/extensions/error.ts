@@ -1,7 +1,8 @@
-export const errorWrapper = async (fn: () => Promise<any>): Promise<any> => {
+
+export const errorWrapper = async <T>(fn: () => Promise<T>): Promise<[Error | null, T | null]> => {
   try {
     return [null, await fn()]
   } catch (error) {
-    return [error, null]
+    return [error as Error, null]
   }
 }
