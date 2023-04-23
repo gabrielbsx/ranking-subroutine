@@ -1,6 +1,6 @@
 export const errorWrapper = async (fn: () => Promise<any>): Promise<any> => {
   try {
-    return ['ok', await fn()]
+    return [null, await fn()]
   } catch (error) {
     return [error, null]
   }

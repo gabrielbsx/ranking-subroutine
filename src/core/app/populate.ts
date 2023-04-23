@@ -10,10 +10,12 @@ export const populateAccount = (cache: Cache, accountRepository: AccountReposito
     if (not(key.startsWith('account:'))) {
       await Promise.resolve(); return
     }
-    const account = value
-    const [error, accountData] = await errorWrapper(async () => await accountRepository.getAccountByUsername(account.username))
-    console.log(error)
-    console.log(accountData)
+    const accountCached = value
+    const [error, accountFetchedData] = await errorWrapper(async () => await accountRepository.getAccountByUsername(accountCached.username))
+    if (error !== null) {
+      await Promise.resolve(); return
+    }
+    console.log(accountFetchedData)
   }
   for (const [key, value] of cache.data) {
     void fetchCacheAccount(value, key)
