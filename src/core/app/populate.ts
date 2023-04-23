@@ -2,6 +2,7 @@
 import { type Cache } from '../algorithm/cache'
 import { type Account } from '../domain/entity/account'
 import { type AccountRepository } from '../repository/account-repository'
+import { errorWrapper } from '../utils/extensions/error'
 import { not } from '../utils/extensions/operators'
 
 export const populateAccount = (cache: Cache, accountRepository: AccountRepository): void => {
@@ -10,7 +11,8 @@ export const populateAccount = (cache: Cache, accountRepository: AccountReposito
       await Promise.resolve(); return
     }
     const account = value
-    const accountData = await accountRepository.getAccountByUsername(account.username)
+    const [error, accountData] = await errorWrapper(async () => await accountRepository.getAccountByUsername(account.username))
+    console.log(error)
     console.log(accountData)
   }
   for (const [key, value] of cache.data) {

@@ -10,6 +10,9 @@ export const accountRepository = async (database: Database): Promise<AccountRepo
 
   const getAccountByUsername = async (username: string): Promise<GameAccount> => {
     const databaseFetched = await databaseClient.query<GameAccount & { _id: string }>('SELECT * FROM "GameAccount" WHERE username ilike $1', [username])
+    if (databaseFetched.rowCount === 0) {
+      throw new Error('Account not found')
+    }
     const accountRow = databaseFetched.rows[0]
     const account: GameAccount = {
       ...accountRow,
