@@ -3,13 +3,13 @@ import { env } from 'node:process'
 
 export interface Database {
   client: Client | undefined
-  connect: () => Client
+  connect: () => Promise<Client>
   disconnect: () => Promise<void>
 }
 
 export const database: Database = {
   client: undefined,
-  connect () {
+  async connect () {
     if (this.client === undefined) {
       this.client = new Client({
         user: env.DB_USER,
@@ -18,6 +18,7 @@ export const database: Database = {
         password: env.DB_PASS,
         port: Number(env.DB_PORT)
       })
+      await this.client.connect()
     }
     return this.client
   },
