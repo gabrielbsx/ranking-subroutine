@@ -1,4 +1,5 @@
 export enum Evolution {
+  NONE = '',
   MORTAL = 'Mortal',
   ARCH = 'Arch',
   CELESTIAL = 'Celestial',
@@ -6,6 +7,7 @@ export enum Evolution {
 }
 
 export enum Race {
+  NONE = '',
   TRANSKNIGHT = 'TransKnight',
   FOEMA = 'Foema',
   BEASTMASTER = 'BeastMaster',
@@ -19,6 +21,7 @@ export enum GuildHierarchy {
 }
 
 export enum Kingdom {
+  NONE = '',
   AKELONIA = 'Akelonia',
   HEKALOTIA = 'Hekalotia',
   ADVENTURE = 'Adventure',
