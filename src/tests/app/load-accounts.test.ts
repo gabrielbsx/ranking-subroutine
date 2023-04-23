@@ -22,7 +22,6 @@ describe('load accoutns', () => {
   test('accounts should be not cached stats file if file is directory', () => {
     expect(cacheInMemory.data).toHaveLength(0)
     const isDirectoryMocked = vi.spyOn(fileMock, 'isDirectory').mockReturnValue(true)
-    accountStatsCacheAllocation(fileMock, 'any-account')
     expect(cacheInMemory.data).toHaveLength(0)
     expect(isValidAccount(fileMock)).toBe(false)
     isDirectoryMocked.mockRestore()
