@@ -3,6 +3,10 @@ import { accountStatsCacheAllocation, loadAccounts } from '../core/app/load-acco
 import { schedule } from '../core/algorithm/schedule'
 import { readAccountWrapper } from '../core/app/read-account'
 import { StructAccountFile } from '../core/app/structs/account'
+import { populateAccount } from '../core/app/populate'
+import { cacheInMemory } from '../core/algorithm/cache'
+import { accountRepository } from '../core/repository/account-repository'
+import { database } from '../core/algorithm/database-client'
 
 const bootstrap = (): void => {
   console.time('bootstrap')
@@ -17,6 +21,8 @@ const main = (): void => {
     () => {
       const readAccount = readAccountWrapper(StructAccountFile)
       loadAccounts(accountStatsCacheAllocation, readAccount)
+
+      populateAccount(cacheInMemory, accountRepository(database))
     },
     everyTime
   )
