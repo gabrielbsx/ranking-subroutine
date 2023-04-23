@@ -1,5 +1,5 @@
-mock
-.vscode
-node_modules
+mock/
+.vscode/
+node_modules/
+src/core/structs/
 .env
-src/core/structs
