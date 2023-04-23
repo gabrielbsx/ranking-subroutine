@@ -1,13 +1,13 @@
-import { type Guild } from './guild'
+import { type Race, type Evolution, type GuildHierarchy, type Kingdom } from '../../utils/extensions/game-enums'
 
 export interface Mob {
   slot: number
   name: string
   experience: number[]
-  race: string[]
+  race: Race[]
   level: number[]
-  evolution: string
-  guild?: Guild
-  guildHierarchy?: string
-  kingdom?: string
+  evolution?: Evolution
+  guild?: number
+  guildHierarchy?: GuildHierarchy
+  kingdom?: Kingdom
 }
