@@ -5,6 +5,7 @@ import { readdirSync, statSync } from 'node:fs'
 import { type StatsCache } from '../contracts/account-stats-cache'
 import { isEmpty } from '../utils/extensions/empty'
 import { not } from '../utils/extensions/operators'
+import { type ReadAccount } from './read-account'
 
 export const isAccountCached = (account: string): boolean => {
   const accountStatsCached: StatsCache = cacheInMemory.get(`${account}:stats`)
@@ -37,15 +38,8 @@ export const isValidAccount = (stats: StatsCache): boolean => {
 }
 
 type AccountStatsCacheAllocation = (accountStat: StatsCache, account: string) => void
-
 export const accountStatsCacheAllocation: AccountStatsCacheAllocation =
   (accountStat: StatsCache, account: string): void => {
-    if (not(isValidAccount(accountStat))) {
-      return undefined
-    }
-    if (not(isAccountChanged(account, accountStat))) {
-      return undefined
-    }
     const accountStatsCache: StatsCache = {
       size: accountStat.size,
       birthtime: accountStat.birthtime,
@@ -54,15 +48,26 @@ export const accountStatsCacheAllocation: AccountStatsCacheAllocation =
     cacheInMemory.set(`${account}:stats`, accountStatsCache)
   }
 
-export const loadAccounts = (accountStatsCacheAllocation: AccountStatsCacheAllocation): void => {
+export const loadAccounts = (
+  accountStatsCacheAllocation: AccountStatsCacheAllocation,
+  readAccount: ReadAccount
+): void => {
   const accountSubFolders = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').concat('etc')
   const accountFolder = env.ACCOUNT_PATH
   accountSubFolders.forEach((subFolder) => {
     const accountAbsoluteFolder = join(accountFolder, subFolder)
-    readdirSync(accountAbsoluteFolder).forEach((account) => {
-      const accountPath = join(accountAbsoluteFolder, account)
+    readdirSync(accountAbsoluteFolder).forEach((accountFileName) => {
+      const accountPath = join(accountAbsoluteFolder, accountFileName)
       const accountStat = statSync(accountPath)
-      accountStatsCacheAllocation(accountStat, account)
+      if (not(isValidAccount(accountStat))) {
+        return undefined
+      }
+      if (not(isAccountChanged(accountFileName, accountStat))) {
+        return undefined
+      }
+      accountStatsCacheAllocation(accountStat, accountFileName)
+      const account = readAccount(accountPath)
+      console.log(account)
     })
   })
 }

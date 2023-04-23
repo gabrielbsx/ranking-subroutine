@@ -1,6 +1,8 @@
 import dotenv from 'dotenv'
 import { accountStatsCacheAllocation, loadAccounts } from '../core/app/load-accounts'
 import { schedule } from '../core/algorithm/schedule'
+import { readAccountWrapper } from '../core/app/read-account'
+import { StructAccountFile } from '../core/app/structs/account'
 
 const bootstrap = (): void => {
   console.time('bootstrap')
@@ -11,7 +13,13 @@ const bootstrap = (): void => {
 const main = (): void => {
   bootstrap()
   const everyTime = 1000 * 10
-  schedule(() => { loadAccounts(accountStatsCacheAllocation) }, everyTime)
+  schedule(
+    () => {
+      const readAccount = readAccountWrapper(StructAccountFile)
+      loadAccounts(accountStatsCacheAllocation, readAccount)
+    },
+    everyTime
+  )
 }
 
 main()
