@@ -6,6 +6,7 @@ import { type StatsCache } from '../contracts/account-stats-cache'
 import { isEmpty } from '../utils/extensions/empty'
 import { not } from '../utils/extensions/operators'
 import { type ReadAccount } from './read-account'
+import { type Account } from '../domain/entity/account'
 
 export const isAccountCached = (account: string): boolean => {
   const accountStatsCached: StatsCache = cacheInMemory.get(`${account}:stats`)
@@ -48,6 +49,12 @@ export const accountStatsCacheAllocation: AccountStatsCacheAllocation =
     cacheInMemory.set(`${account}:stats`, accountStatsCache)
   }
 
+export const upAccountOnMemory = (
+  account: Partial<Account>
+): void => {
+  cacheInMemory.set(`account:${account.username as string}`, account)
+}
+
 export const loadAccounts = (
   accountStatsCacheAllocation: AccountStatsCacheAllocation,
   readAccount: ReadAccount
@@ -67,7 +74,7 @@ export const loadAccounts = (
       }
       accountStatsCacheAllocation(accountStat, accountFileName)
       const account = readAccount(accountPath)
-      console.log(account)
+      upAccountOnMemory(account)
     })
   })
 }
