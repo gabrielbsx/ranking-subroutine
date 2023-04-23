@@ -18,11 +18,12 @@ const main = (): void => {
   bootstrap()
   const everyTime = 1000 * 10
   schedule(
-    () => {
+    async () => {
       const readAccount = readAccountWrapper(StructAccountFile)
       loadAccounts(accountStatsCacheAllocation, readAccount)
 
-      populateAccount(cacheInMemory, accountRepository(database))
+      const accountRepositoryFactory = await accountRepository(database)
+      populateAccount(cacheInMemory, accountRepositoryFactory)
     },
     everyTime
   )

@@ -5,11 +5,15 @@ import { type AccountRepository } from '../repository/account-repository'
 import { not } from '../utils/extensions/operators'
 
 export const populateAccount = (cache: Cache, accountRepository: AccountRepository): void => {
-  cache.data.forEach((value, key) => {
+  const fetchCacheAccount = async (value: Account, key: string): Promise<void> => {
     if (not(key.startsWith('account:'))) {
-      return undefined
+      await Promise.resolve(); return
     }
-    const account: Account = value
-    void accountRepository.getAccountByUsername(account.username)
-  })
+    const account = value
+    const accountData = await accountRepository.getAccountByUsername(account.username)
+    console.log(accountData)
+  }
+  for (const [key, value] of cache.data) {
+    void fetchCacheAccount(value, key)
+  }
 }
