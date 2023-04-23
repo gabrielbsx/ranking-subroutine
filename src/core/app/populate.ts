@@ -1,23 +1,31 @@
-
-import { type Cache } from '../algorithm/cache'
-import { type Account } from '../domain/entity/account'
 import { type AccountRepository } from '../repository/account-repository'
 import { errorWrapper } from '../utils/extensions/error'
-import { not } from '../utils/extensions/operators'
+import { type PlayerRepository } from '../repository/player-repository'
+import { type Account } from '../domain/entity/account'
 
-export const populateAccount = (cache: Cache, accountRepository: AccountRepository): void => {
-  const fetchCacheAccount = async (value: Account, key: string): Promise<void> => {
-    if (not(key.startsWith('account:'))) {
-      await Promise.resolve(); return
+export const populateAccount = async (
+  accountRepository: AccountRepository,
+  playerRepository: PlayerRepository,
+  accounts: Account[]
+): Promise<void> => {
+  for (const account of accounts) {
+    const [error, accountFetchedData] = await errorWrapper(async () => await accountRepository.getAccountByUsername(account.username))
+    if (error !== null || accountFetchedData === null) {
+      console.error(error)
+      await Promise.resolve()
     }
-    const accountCached = value
-    const [error, accountFetchedData] = await errorWrapper(async () => await accountRepository.getAccountByUsername(accountCached.username))
-    if (error !== null) {
-      await Promise.resolve(); return
-    }
-    console.log(accountFetchedData)
-  }
-  for (const [key, value] of cache.data) {
-    void fetchCacheAccount(value, key)
+    const accountId = accountFetchedData?.id as string
+    account.players.map(async (player) => {
+      const [error, playerFetchedData] = await errorWrapper(async () => await playerRepository.getBySlotAndAccountId(player.slot, accountId))
+      if (error !== null) {
+        console.error(error)
+        await Promise.resolve()
+      }
+      if (playerFetchedData === null) {
+        await playerRepository.insert(player, accountId)
+      } else {
+        await playerRepository.update(playerFetchedData.id, player)
+      }
+    })
   }
 }

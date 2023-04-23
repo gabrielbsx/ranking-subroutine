@@ -1,9 +1,8 @@
-import { Client } from 'pg'
-import { env } from 'node:process'
+import { PrismaClient } from '@prisma/client'
 
 export interface Database {
-  client: Client | undefined
-  connect: () => Promise<Client>
+  client: PrismaClient | undefined
+  connect: () => Promise<PrismaClient>
   disconnect: () => Promise<void>
 }
 
@@ -11,20 +10,14 @@ export const database: Database = {
   client: undefined,
   async connect () {
     if (this.client === undefined) {
-      this.client = new Client({
-        user: env.DB_USER,
-        host: env.DB_HOST,
-        database: env.DB_NAME,
-        password: env.DB_PASS,
-        port: Number(env.DB_PORT)
-      })
-      await this.client.connect()
+      this.client = new PrismaClient()
+      void this.client.$connect()
     }
     return this.client
   },
   async disconnect () {
     if (this.client !== undefined) {
-      await this.client.end()
+      await this.client.$disconnect()
       this.client = undefined
     }
   }

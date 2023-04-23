@@ -10,4 +10,5 @@ export interface Mob {
   guild?: number
   guildHierarchy?: GuildHierarchy
   kingdom?: Kingdom
+  accountId?: string
 }

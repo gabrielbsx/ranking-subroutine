@@ -3,3 +3,4 @@ mock/
 node_modules/
 src/core/structs/
 .env
+prisma
